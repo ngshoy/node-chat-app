@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "main": "",
   "license": "MIT",
+  "engines": {
+    "node": "10.15.0"
+  },
   "devDependencies": {
     "nodemon": "^1.18.10"
   },
   "scripts": {
-    "start": "nodemon ./server/server.js"
+    "start": "nodemon server/server.js"
   },
   "dependencies": {
     "express": "^4.16.4"
