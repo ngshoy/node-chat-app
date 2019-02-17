@@ -1,0 +1,12 @@
+{
+  "name": "node-chat-app",
+  "version": "1.0.0",
+  "main": "",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "scripts": {
+    "start": "nodemon ./server/server.js"
+  }
+}
