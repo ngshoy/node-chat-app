@@ -20,6 +20,10 @@ io.on('connection', socket => {
 
   socket.on('createMessage', message => {
     console.log('createMessage', message);
+    socket.broadcast.emit('newMessage', {
+      ...message,
+      createdAt: new Date()
+    });
   });
 
   socket.emit('newMessage', {
