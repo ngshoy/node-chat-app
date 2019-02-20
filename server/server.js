@@ -22,12 +22,10 @@ io.on('connection', socket => {
     console.log('a client has disconnected');
   });
 
-  socket.on('createMessage', message => {
+  socket.on('createMessage', (message, cb) => {
     console.log('createMessage', message);
-    // socket.broadcast.emit('newMessage', {
-    //   ...message,
-    //   createdAt: new Date()
-    // });
+    io.emit('newMessage', generateMessage(message.from, message.text));
+    cb();
   });
 
   socket.emit('newMessage', {
