@@ -11,10 +11,14 @@ socket.on('disconnect', () => {
 
 socket.on('newMessage', message => {
   const formattedTime = moment(message.createdAt).format('h:mm a');
-  let li = jQuery('<li></li>');
-  li.text(`${message.from} ${formattedTime}: ${message.text}`);
+  const template = jQuery('#message-template').html();
+  const html = Mustache.render(template, { 
+    text: message.text, 
+    from: message.from, 
+    createdAt: formattedTime 
+  });
 
-  jQuery('#messages').append(li);
+  jQuery('#messages').append(html);
 });
 
 socket.on('newLocationMessage', function (message) {
