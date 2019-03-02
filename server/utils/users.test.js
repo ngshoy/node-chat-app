@@ -4,6 +4,25 @@ const {
 } = require('./users');
 
 describe('Users', () => {
+  let users;
+
+  beforeEach(() => { 
+    users = new Users(); 
+    users.users = [{ 
+      id: '1', 
+      name: 'Mike', 
+      room: 'Node Course' 
+    },{ 
+      id: '2', 
+      name: 'Jen', 
+      room: 'React Course' 
+    },{ 
+      id: '3', 
+      name: 'Julie', 
+      room: 'Node Course' 
+    }] 
+  }); 
+
   it('should add new user', () => {
     const users = new Users();
     const user = {
@@ -14,5 +33,17 @@ describe('Users', () => {
     const resUser = users.addUser(user.id, user.name, user.room);
 
     expect(users.users).toEqual([user]);
+  });
+
+  it('should return names for node course', () => {
+    const userList = users.getUserList('Node Course');
+   
+    expect(userList).toEqual(['Mike', 'Julie']);
+  });
+
+  it('should return names for react course', () => {
+    const userList = users.getUserList('React Course');
+   
+    expect(userList).toEqual(['Jen']);
   });
 });

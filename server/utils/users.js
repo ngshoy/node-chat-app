@@ -12,6 +12,13 @@ class Users {
     this.users.push(user);
     return user;
   }
+
+  getUserList(room) {
+    return this.users.filter((user) => user.room === room)
+      .map((user) => user.name);
+  }
 }
 
-module.exports = {Users};
+module.exports = {
+  Users
+};
