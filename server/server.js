@@ -18,36 +18,31 @@ app.use(express.static(publicPath));
 
 io.on('connection', socket => {
   console.log('a client has connected');
-  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
-
-  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
   socket.on('join', (params, callback) => {
+    socket.join(params.room);
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`));
+
+    socket.on('createMessage', (message, cb) => {
+      console.log('createMessage', message);
+      io.to(params.room).emit('newMessage', generateMessage(message.from, message.text));
+      cb();
+    });
+  
+    socket.on('createLocationMessage', (coords) => {
+      io.to(params.room).emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    });
+
     if(!isRealString(params.name) || !isRealString(params.room)) {
       callback('Name and room name are required.');
     }
   
     callback();
   });
-  
+
   socket.on('disconnect', () => {
     console.log('a client has disconnected');
-  });
-
-  socket.on('createMessage', (message, cb) => {
-    console.log('createMessage', message);
-    io.emit('newMessage', generateMessage(message.from, message.text));
-    cb();
-  });
-
-  socket.on('createLocationMessage', (coords) => {
-    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
-  });
-
-  socket.emit('newMessage', {
-    from: 'John',
-    text: 'See you then',
-    createdAt: new Date()
   });
 });
 

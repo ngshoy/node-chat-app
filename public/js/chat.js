@@ -15,11 +15,11 @@ const scrollToBottom = () => {
   }
 }
 
+const params = jQuery.deparam(window.location.search);
+
 socket.on('connect', () => {
   const connTime = new Date();
   console.log(`Connected to Server on ${connTime.toLocaleString()}`);
-
-  const params = jQuery.deparam(window.location.search);
 
   socket.emit('join', params, function (err) {
     if(err) {
@@ -61,18 +61,12 @@ socket.on('newLocationMessage', function (message) {
   scrollToBottom();
 });
 
-socket.emit('createMessage', {
-  from: 'Andrew',
-  text: 'Yup, that works for me.',
-  createdAt: new Date()
-}, () => console.log('got it'));
-
 jQuery('#message-form').on('submit', e => {
   e.preventDefault();
   const messageTextbox = jQuery('[name=message]');
 
   socket.emit('createMessage', {
-    from: 'User',
+    from: params.name,
     text: messageTextbox.val()
   }, () => {
     messageTextbox.val('');
