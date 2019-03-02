@@ -46,4 +46,17 @@ describe('Users', () => {
    
     expect(userList).toEqual(['Jen']);
   });
+
+  it ('should find user', () => {
+    var userId = '2';
+    var user = users.getUser(userId);
+    expect(user.id).toBe(userId);
+ });
+
+ it ('should not find user', () => {
+  var userId = '99';
+  var user = users.getUser(userId);
+ 
+  expect(user).toBeFalsy();
+});
 });

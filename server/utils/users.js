@@ -17,6 +17,10 @@ class Users {
     return this.users.filter((user) => user.room === room)
       .map((user) => user.name);
   }
+
+  getUser(id) {
+    return this.users.filter((user) => user.id === id)[0]
+  }
 }
 
 module.exports = {
