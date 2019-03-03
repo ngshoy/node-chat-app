@@ -48,29 +48,29 @@ describe('Users', () => {
   });
 
   it('should find user', () => {
-    var userId = '2';
-    var user = users.getUser(userId);
+    const userId = '2';
+    const user = users.getUser(userId);
     expect(user.id).toBe(userId);
   });
 
   it('should not find user', () => {
-    var userId = '99';
-    var user = users.getUser(userId);
+    const userId = '99';
+    const user = users.getUser(userId);
 
     expect(user).toBeFalsy();
   });
 
   it('should remove a user', () => {
-    var userId = '1';
-    var user = users.removeUser(userId);
+    const userId = '1';
+    const user = users.removeUser(userId);
 
     expect(user.id).toBe(userId);
     expect(users.users.length).toBe(2);
   });
 
   it('should not remove user', () => {
-    var userId = '99';
-    var user = users.removeUser(userId);
+    const userId = '99';
+    const user = users.removeUser(userId);
 
     expect(user).toBeUndefined();
     expect(users.users.length).toBe(3);

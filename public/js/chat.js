@@ -61,6 +61,10 @@ socket.on('newLocationMessage', function (message) {
   scrollToBottom();
 });
 
+socket.on('updateUserList', users => {
+  console.log('Users list', users);
+});
+
 jQuery('#message-form').on('submit', e => {
   e.preventDefault();
   const messageTextbox = jQuery('[name=message]');
