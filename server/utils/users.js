@@ -21,6 +21,16 @@ class Users {
   getUser(id) {
     return this.users.filter((user) => user.id === id)[0]
   }
+
+  removeUser(id) {
+    var user = this.getUser(id);
+
+    if (user) {
+      this.users = this.users.filter((user) => user.id !== id);
+    }
+
+    return user;
+  }
 }
 
 module.exports = {
