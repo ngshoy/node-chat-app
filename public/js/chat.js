@@ -22,9 +22,9 @@ socket.on('connect', () => {
   console.log(`Connected to Server on ${connTime.toLocaleString()}`);
 
   socket.emit('join', params, function (err) {
-    if(err) {
-      alert(err);    
-      window.location.href = '/';    
+    if (err) {
+      alert(err);
+      window.location.href = '/';
     } else {
       console.log('No error');
     }
@@ -62,7 +62,13 @@ socket.on('newLocationMessage', function (message) {
 });
 
 socket.on('updateUserList', users => {
-  console.log('Users list', users);
+  const ol = jQuery('<ol></ol>');
+
+  users.forEach(user => {
+    ol.append(jQuery('<li></li>').text(user));
+  });
+
+  jQuery('#users').html(ol);
 });
 
 jQuery('#message-form').on('submit', e => {
